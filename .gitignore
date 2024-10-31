@@ -1,1 +1,2 @@
-increment-count/target
+*target
+*.sqlx
