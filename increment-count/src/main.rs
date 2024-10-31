@@ -4,6 +4,7 @@ use anyhow::Result;
 use serde::Serialize;
 
 #[derive(Serialize)]
+
 struct DBResp {
     count: i32,
     ip_addr: String,

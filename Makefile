@@ -10,11 +10,11 @@ increment-count-sqlx-prepare:
     postgres
 
 	@cd increment-count && DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres cargo sqlx prepare
-	@docker stop sqlx-db && docker rm sqlx-db
+	@docker stop sqlx-db
+	@docker rm sqlx-db
 
-# Sets up the increment-count
 increment-count-build: increment-count-sqlx-prepare
-	docker build ./increment-count -t increment-count
+	@docker build ./increment-count -t increment-count
 
 increment-count-test: increment-count-build
-	./increment-count/test/test.sh
+	@./increment-count/test/test.sh

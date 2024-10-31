@@ -1,0 +1,20 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT requests FROM counter",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "requests",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      true
+    ]
+  },
+  "hash": "1750ca1952f3be483864ed0e2ed4095f6f75f0497694a8d916683a60e2800b62"
+}
