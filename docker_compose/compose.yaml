@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres
+    container_name: database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - test_network
+  db-client:
+    image: ghcr.io/asteurer/dixie-tech-demo
+    container_name: client
+    environment:
+      DATABASE_URL: "postgres://postgres:postgres@database:5432/postgres?sslmode=disable"
+      POD_IP: "localhost"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - test_network
+networks:
+  test_network:
+    driver: bridge

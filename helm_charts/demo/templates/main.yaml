@@ -1,0 +1,120 @@
+# Load the schema.sql file
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Values.demo.prefix }}-database-schema"
+data:
+  schema.sql: {{ .Files.Get "files/schema.sql" | indent 4 }}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.demo.prefix }}-database"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ .Values.demo.prefix }}-database"
+  template:
+    metadata:
+      annotations:
+        operator.1password.io/inject: "{{ .Values.demo.prefix }}-database"
+      labels:
+        app: "{{ .Values.demo.prefix }}-database"
+    spec:
+      containers:
+        - name: "{{ .Values.demo.prefix }}-database"
+          image: "{{ .Values.demo.database.image }}"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "{{ .Values.demo.database.user }}"
+            - name: POSTGRES_PASSWORD
+              value: "{{ .Values.demo.database.password }}"
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d/
+              name: schema-volume
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+
+      volumes:
+        - name: schema-volume
+          configMap:
+            name: "{{ .Values.demo.prefix }}-database-schema"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.demo.prefix }}-client"
+spec:
+  replicas: 1 # Scale to 4
+  selector:
+    matchLabels:
+      app: "{{ .Values.demo.prefix }}-client"
+  template:
+    metadata:
+      annotations:
+        operator.1password.io/inject: "{{ .Values.demo.prefix }}-client"
+      labels:
+        app: "{{ .Values.demo.prefix }}-client"
+    spec:
+      containers:
+        - name: "{{ .Values.demo.prefix }}-client"
+          image: "{{ .Values.demo.client.image }}"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATABASE_URL
+              value: "{{ .Values.demo.client.dbURL }}"
+            - name: POD_IP # Retrieving the pod's IP address from the Downward API
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.demo.prefix }}-database"
+  labels:
+    app: "{{ .Values.demo.prefix }}-database"
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: "{{ .Values.demo.prefix }}-database"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.demo.prefix }}-client"
+  labels:
+    app: "{{ .Values.demo.prefix }}-client"
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30080
+  selector:
+    app: "{{ .Values.demo.prefix }}-client"

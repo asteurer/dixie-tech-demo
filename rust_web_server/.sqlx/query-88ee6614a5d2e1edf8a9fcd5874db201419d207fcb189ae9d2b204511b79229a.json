@@ -1,0 +1,12 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE l_count SET num_ls = 0",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": []
+  },
+  "hash": "88ee6614a5d2e1edf8a9fcd5874db201419d207fcb189ae9d2b204511b79229a"
+}

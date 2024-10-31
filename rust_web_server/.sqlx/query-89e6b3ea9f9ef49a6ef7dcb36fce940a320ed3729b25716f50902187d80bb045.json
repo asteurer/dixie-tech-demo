@@ -1,0 +1,20 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT num_ls FROM l_count",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "num_ls",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      true
+    ]
+  },
+  "hash": "89e6b3ea9f9ef49a6ef7dcb36fce940a320ed3729b25716f50902187d80bb045"
+}

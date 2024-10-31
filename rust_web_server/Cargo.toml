@@ -1,0 +1,12 @@
+[package]
+name = "rust-demo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4.9.0"
+sqlx = {version = "0.8.2", features = ["runtime-tokio-native-tls", "postgres"] }
+serde = "1.0.214"
+serde_derive = "1.0.214"
+tokio = "1.41.0"
+anyhow = "1.0.91"

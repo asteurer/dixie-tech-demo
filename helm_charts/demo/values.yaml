@@ -1,0 +1,12 @@
+demo:
+  # The value with which each Kubernetes resource will be prefixed
+  prefix: demo
+
+  database:
+    image: postgres:17
+    user: postgres
+    password: postgres
+
+  client:
+    image: ghcr.io/asteurer/dixie-tech-demo
+    dbURL: postgres://postgres:postgres@demo-database.default.svc.cluster.local:5432/postgres?sslmode=disable
