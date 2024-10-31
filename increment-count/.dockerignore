@@ -1,2 +1,4 @@
 target/
 test/
+
+# FYI: the .sqlx directory is important to include in the build
