@@ -1,0 +1,250 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 793B done
+#1 DONE 0.0s
+
+#2 [auth] library/rust:pull token for registry-1.docker.io
+#2 DONE 0.0s
+
+#3 [auth] library/alpine:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/rust:1.82-alpine
+#4 DONE 0.6s
+
+#5 [internal] load metadata for docker.io/library/alpine:latest
+#5 DONE 0.6s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 34B done
+#6 DONE 0.0s
+
+#7 [builder 1/9] FROM docker.io/library/rust:1.82-alpine@sha256:466dc9924d265455aa73e72fd9cdac9db69ce6a988e6f0e6baf852db3485d97d
+#7 DONE 0.0s
+
+#8 [stage-1 1/4] FROM docker.io/library/alpine:latest@sha256:beefdbd8a1da6d2915566fde36db9db0b524eb737fc57cd1367effd16dc0d06d
+#8 CACHED
+
+#9 [internal] load build context
+#9 transferring context: 759.33kB 0.2s done
+#9 DONE 0.2s
+
+#10 [builder 4/9] COPY Cargo.toml Cargo.lock ./
+#10 CACHED
+
+#11 [builder 5/9] RUN mkdir src
+#11 CACHED
+
+#12 [builder 6/9] RUN echo "fn main() {}" > src/main.rs
+#12 CACHED
+
+#13 [builder 2/9] WORKDIR /app
+#13 CACHED
+
+#14 [builder 3/9] RUN apk update && apk add --no-cache build-base musl-dev openssl-dev pkgconfig
+#14 CACHED
+
+#15 [builder 7/9] RUN cargo fetch
+#15 CACHED
+
+#16 [builder 8/9] COPY . .
+#16 ...
+
+#17 [stage-1 2/4] RUN apk add --no-cache libssl3 libcrypto3
+#17 0.146 fetch https://dl-cdn.alpinelinux.org/alpine/v3.20/main/x86_64/APKINDEX.tar.gz
+#17 0.644 fetch https://dl-cdn.alpinelinux.org/alpine/v3.20/community/x86_64/APKINDEX.tar.gz
+#17 1.008 OK: 8 MiB in 14 packages
+#17 DONE 1.3s
+
+#18 [stage-1 3/4] WORKDIR /app
+#18 DONE 0.0s
+
+#16 [builder 8/9] COPY . .
+#16 DONE 2.3s
+
+#19 [builder 9/9] RUN RUSTFLAGS="-C target-feature=-crt-static" cargo build --release
+#19 0.393    Compiling proc-macro2 v1.0.89
+#19 0.393    Compiling unicode-ident v1.0.13
+#19 0.393    Compiling libc v0.2.161
+#19 0.393    Compiling version_check v0.9.5
+#19 0.393    Compiling autocfg v1.4.0
+#19 0.393    Compiling serde v1.0.214
+#19 0.393    Compiling cfg-if v1.0.0
+#19 0.393    Compiling typenum v1.17.0
+#19 0.393    Compiling shlex v1.3.0
+#19 0.393    Compiling pkg-config v0.3.31
+#19 0.393    Compiling parking_lot_core v0.9.10
+#19 0.393    Compiling vcpkg v0.2.15
+#19 0.394    Compiling pin-project-lite v0.2.15
+#19 0.394    Compiling crossbeam-utils v0.8.20
+#19 0.394    Compiling once_cell v1.20.2
+#19 0.444    Compiling log v0.4.22
+#19 0.479    Compiling futures-core v0.3.31
+#19 0.510    Compiling memchr v2.7.4
+#19 0.618    Compiling scopeguard v1.2.0
+#19 0.641    Compiling bytes v1.8.0
+#19 0.713    Compiling paste v1.0.15
+#19 0.732    Compiling openssl v0.10.68
+#19 0.732    Compiling itoa v1.0.11
+#19 0.769    Compiling byteorder v1.5.0
+#19 0.787    Compiling serde_json v1.0.132
+#19 0.911    Compiling futures-sink v0.3.31
+#19 0.913    Compiling native-tls v0.2.12
+#19 0.919    Compiling generic-array v0.14.7
+#19 1.021    Compiling subtle v2.6.1
+#19 1.031    Compiling thiserror v1.0.65
+#19 1.069    Compiling lock_api v0.4.12
+#19 1.071    Compiling slab v0.4.9
+#19 1.098    Compiling num-traits v0.2.19
+#19 1.199    Compiling tracing-core v0.1.32
+#19 1.220    Compiling tinyvec_macros v0.1.1
+#19 1.284    Compiling tinyvec v1.8.0
+#19 1.373    Compiling ahash v0.8.11
+#19 1.537    Compiling bitflags v2.6.0
+#19 1.589    Compiling percent-encoding v2.3.1
+#19 1.679    Compiling quote v1.0.37
+#19 1.698    Compiling jobserver v0.1.32
+#19 1.919    Compiling syn v2.0.85
+#19 2.001    Compiling socket2 v0.5.7
+#19 2.082    Compiling cc v1.1.31
+#19 2.115    Compiling signal-hook-registry v1.4.2
+#19 2.155    Compiling mio v1.0.2
+#19 2.256    Compiling getrandom v0.2.15
+#19 2.365    Compiling pin-utils v0.1.0
+#19 2.412    Compiling unicode-bidi v0.3.17
+#19 2.464    Compiling foreign-types-shared v0.1.1
+#19 2.516    Compiling futures-io v0.3.31
+#19 2.740    Compiling unicode-normalization v0.1.24
+#19 2.756    Compiling futures-task v0.3.31
+#19 2.772    Compiling foreign-types v0.3.2
+#19 2.977    Compiling futures-util v0.3.31
+#19 3.127    Compiling crypto-common v0.1.6
+#19 3.145    Compiling block-buffer v0.10.4
+#19 3.293    Compiling digest v0.10.7
+#19 3.376    Compiling minimal-lexical v0.2.1
+#19 3.419    Compiling allocator-api2 v0.2.18
+#19 3.537    Compiling hashbrown v0.15.0
+#19 3.544    Compiling equivalent v1.0.1
+#19 3.598    Compiling cpufeatures v0.2.14
+#19 3.616    Compiling form_urlencoded v1.2.1
+#19 3.617    Compiling idna v0.5.0
+#19 3.788    Compiling tokio v1.41.0
+#19 3.788    Compiling rand_core v0.6.4
+#19 3.807    Compiling concurrent-queue v2.5.0
+#19 3.892    Compiling nom v7.1.3
+#19 4.196    Compiling parking v2.2.1
+#19 4.322    Compiling crc-catalog v2.4.0
+#19 4.346    Compiling ryu v1.0.18
+#19 4.393    Compiling openssl-probe v0.1.5
+#19 4.477    Compiling rustix v0.38.38
+#19 4.597    Compiling unicode_categories v0.1.1
+#19 4.625    Compiling crc v3.2.1
+#19 4.735    Compiling event-listener v5.3.1
+#19 4.811    Compiling indexmap v2.6.0
+#19 4.828    Compiling atoi v2.0.0
+#19 4.866    Compiling url v2.5.2
+#19 4.880    Compiling sha2 v0.10.8
+#19 4.986    Compiling futures-channel v0.3.31
+#19 4.998    Compiling openssl-sys v0.9.104
+#19 5.089    Compiling zstd-sys v2.0.13+zstd.1.5.6
+#19 5.163    Compiling hmac v0.12.1
+#19 5.205    Compiling crossbeam-queue v0.3.11
+#19 5.319    Compiling linux-raw-sys v0.4.14
+#19 5.364    Compiling fnv v1.0.7
+#19 5.364    Compiling alloc-no-stdlib v2.0.4
+#19 5.431    Compiling hex v0.4.3
+#19 5.490    Compiling zstd-safe v7.2.1
+#19 5.497    Compiling unicode-properties v0.1.3
+#19 5.701    Compiling local-waker v0.1.4
+#19 5.839    Compiling stringprep v0.1.5
+#19 6.427    Compiling alloc-stdlib v0.2.2
+#19 6.610    Compiling http v0.2.12
+#19 6.657    Compiling hkdf v0.12.4
+#19 6.833    Compiling md-5 v0.10.6
+#19 6.985    Compiling aho-corasick v1.1.3
+#19 7.247    Compiling num-conv v0.1.0
+#19 7.340    Compiling base64 v0.22.1
+#19 7.507    Compiling whoami v1.5.2
+#19 7.777    Compiling sqlformat v0.2.6
+#19 7.794    Compiling httparse v1.9.5
+#19 7.932    Compiling dotenvy v0.15.7
+#19 8.334    Compiling adler2 v2.0.0
+#19 8.533    Compiling fastrand v2.1.1
+#19 8.542    Compiling powerfmt v0.2.0
+#19 8.879    Compiling regex-syntax v0.8.5
+#19 9.071    Compiling home v0.5.9
+#19 9.235    Compiling time-core v0.1.2
+#19 9.272    Compiling deranged v0.3.11
+#19 9.339    Compiling time-macros v0.2.18
+#19 9.514    Compiling miniz_oxide v0.8.0
+#19 10.62    Compiling tempfile v3.13.0
+#19 11.22    Compiling brotli-decompressor v4.0.1
+#19 12.26    Compiling actix-utils v3.0.1
+#19 12.90    Compiling tokio-stream v0.1.16
+#19 13.01    Compiling actix-service v2.0.2
+#19 13.02    Compiling bytestring v1.3.1
+#19 13.57    Compiling cookie v0.16.2
+#19 13.63    Compiling crc32fast v1.4.2
+#19 13.88    Compiling heck v0.5.0
+#19 14.29    Compiling regex-lite v0.1.6
+#19 14.45    Compiling convert_case v0.4.0
+#19 14.51    Compiling time v0.3.36
+#19 14.58    Compiling flate2 v1.0.34
+#19 15.24    Compiling regex-automata v0.4.8
+#19 15.74    Compiling brotli v6.0.0
+#19 16.41    Compiling serde_derive v1.0.214
+#19 16.73    Compiling zerocopy-derive v0.7.35
+#19 17.63    Compiling tracing-attributes v0.1.27
+#19 17.85    Compiling openssl-macros v0.1.1
+#19 18.01    Compiling thiserror-impl v1.0.65
+#19 18.57    Compiling derive_more v0.99.18
+#19 18.58    Compiling local-channel v0.1.5
+#19 19.39    Compiling zerocopy v0.7.35
+#19 22.46    Compiling tracing v0.1.40
+#19 23.41    Compiling hashbrown v0.14.5
+#19 24.01    Compiling ppv-lite86 v0.2.20
+#19 25.15    Compiling hashlink v0.9.1
+#19 25.21    Compiling rand_chacha v0.3.1
+#19 26.24    Compiling rand v0.8.5
+#19 27.78    Compiling regex v1.11.1
+#19 28.70    Compiling sha1 v0.10.6
+#19 29.06    Compiling encoding_rs v0.8.35
+#19 30.03    Compiling httpdate v1.0.3
+#19 32.91    Compiling mime v0.3.17
+#19 33.41    Compiling language-tags v0.3.2
+#19 36.14    Compiling anyhow v1.0.91
+#19 38.10    Compiling actix-macros v0.2.4
+#19 38.65    Compiling impl-more v0.1.8
+#19 48.34    Compiling smallvec v1.13.2
+#19 49.26    Compiling either v1.13.0
+#19 49.31    Compiling actix-router v0.5.3
+#19 51.04    Compiling parking_lot v0.12.3
+#19 51.64    Compiling serde_urlencoded v0.7.1
+#19 53.24    Compiling futures-intrusive v0.5.0
+#19 54.93    Compiling actix-web-codegen v4.3.0
+#19 56.49    Compiling sqlx-core v0.8.2
+#19 73.15    Compiling sqlx-postgres v0.8.2
+#19 82.05    Compiling tokio-util v0.7.12
+#19 82.05    Compiling actix-rt v2.10.0
+#19 82.52    Compiling actix-server v2.5.0
+#19 84.43    Compiling h2 v0.3.26
+#19 85.41    Compiling actix-codec v0.5.2
+#19 90.47    Compiling sqlx-macros-core v0.8.2
+#19 94.34    Compiling zstd v0.13.2
+#19 94.63    Compiling sqlx-macros v0.8.2
+#19 96.46    Compiling actix-http v3.9.0
+#19 101.8    Compiling sqlx v0.8.2
+#19 102.9    Compiling actix-web v4.9.0
+#19 139.8    Compiling increment-count v0.1.0 (/app)
+#19 162.7     Finished `release` profile [optimized] target(s) in 2m 42s
+#19 DONE 162.7s
+
+#20 [stage-1 4/4] COPY --from=builder /app/target/release/increment-count .
+#20 DONE 0.0s
+
+#21 exporting to image
+#21 exporting layers 0.0s done
+#21 writing image sha256:2bf1cfe72fc977ac66bb9e102263343f4813d976edfa039409ab32353f6601d3 done
+#21 naming to docker.io/library/increment-count done
+#21 DONE 0.0s
