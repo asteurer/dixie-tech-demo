@@ -1,22 +1,22 @@
 # Build stage
 FROM rust:1.82-alpine AS builder
+
 WORKDIR /app
 
 # Add build dependencies
 RUN apk update && apk add --no-cache build-base musl-dev openssl-dev pkgconfig
 
-# Copy Cargo.toml and Cargo.lock to cache dependencies
+# Build and cache the dependencies
 COPY Cargo.toml Cargo.lock ./
-
-# Create a dummy main.rs to allow cargo fetch to proceed
+# Tricking docker into caching the compiled cargo dependencies
 RUN mkdir src && echo "fn main() {}" > src/main.rs
-
-# Pre-fetch dependencies for faster build when src files are changed
 RUN cargo fetch
+RUN RUSTFLAGS="-C target-feature=-crt-static" cargo build --release
 
+# Copy the actual code files and build the application
 COPY . .
-
-# Disables static linking of C runtime, allowing musl to dynamically link against OpenSSL
+# Update the file date
+RUN touch src/main.rs
 RUN RUSTFLAGS="-C target-feature=-crt-static" cargo build --release
 
 # Final stage
