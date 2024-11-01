@@ -20,7 +20,7 @@ async fn increment(data: web::Data<AppState>) -> impl Responder {
         .execute(&data.pool)
         .await
     {
-        Ok(_) => HttpResponse::Ok().body("Success!"),
+        Ok(_) => HttpResponse::Ok().body(format!("OK from {}", data.ip_addr)),
         Err(e) => {
             eprintln!("Error incrementing count: {:?}", e);
             HttpResponse::InternalServerError().body("Failed to increment count")
@@ -61,7 +61,7 @@ async fn main() -> Result<()> {
     for line in cmd_output_str.split("\n") {
         if line.contains("global eth0") {
             for word in line.split(" ") {
-                if word.contains("/16") {
+                if word.contains("/") {
                     ip_addr = word.split("/").collect::<Vec<&str>>()[0];
                     break;
                 }
