@@ -56,7 +56,7 @@ kind: Deployment
 metadata:
   name: "{{ .Values.demo.prefix }}-client"
 spec:
-  replicas: 1 # Scale to 4
+  replicas: {{ .Values.demo.client.numReplicas }}
   selector:
     matchLabels:
       app: "{{ .Values.demo.prefix }}-client"

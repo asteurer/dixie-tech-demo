@@ -41,7 +41,7 @@ helm-rm:
 	@helm uninstall demo
 
 test:
-	@URL=http://$(domain) go run ./load_generator/main.go
+	@URL=http://$(domain):30080 go run ./load_generator/main.go
 
 get:
 	@curl asteurer.cc:30080

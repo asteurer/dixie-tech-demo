@@ -10,3 +10,4 @@ demo:
   client:
     image: ghcr.io/asteurer/dixie-tech-demo
     dbURL: postgres://postgres:postgres@demo-database.default.svc.cluster.local:5432/postgres?sslmode=disable
+    numReplicas: 1 # Scale to 4
